@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import org.apache.log4j.Logger;
 import org.cutre.soft.epi.command.CommandMessage;
 import org.cutre.soft.epi.command.DataRefCommand;
 import org.cutre.soft.epi.command.ExtPlaneCommand;
@@ -40,9 +39,7 @@ import org.cutre.soft.exception.ConnectionException;
  * @author Pau G.
  */
 public class ExtPlaneInterface {
-    
-    private static final Logger LOGGER = Logger.getLogger(ExtPlaneInterface.class);
-    
+
     private Socket socket;
     
     private DataRefRepository dataRefrepository;
@@ -123,7 +120,7 @@ public class ExtPlaneInterface {
             this.startSending();
             this.startReceiving();
         } catch(Exception e) {
-            LOGGER.error("Error starting services.", e);
+//            LOGGER.error("Error starting services.", e);
             this.stopReceiving();
             this.stopSending();
             throw e;
@@ -148,10 +145,10 @@ public class ExtPlaneInterface {
         try {
             socket = new Socket(server, port);
         } catch (UnknownHostException e) {
-            LOGGER.error("[ExtPlaneInterface::connect] Error connecting host " + server, e);
+//            LOGGER.error("[ExtPlaneInterface::connect] Error connecting host " + server, e);
             throw new ConnectionException("Error connecting host -> " + server, e);
         } catch (IOException e) {
-            LOGGER.error("[ExtPlaneInterface::connect] Error connecting host " + server, e);
+//            LOGGER.error("[ExtPlaneInterface::connect] Error connecting host " + server, e);
             throw new ConnectionException("Error connecting host -> " + server, e);
         }
     }
