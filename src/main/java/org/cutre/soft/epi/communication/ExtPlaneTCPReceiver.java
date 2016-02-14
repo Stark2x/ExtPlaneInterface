@@ -7,7 +7,6 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.apache.log4j.Logger;
 import org.cutre.soft.epi.data.DataRefRepository;
 
 /**
@@ -31,8 +30,6 @@ import org.cutre.soft.epi.data.DataRefRepository;
  */
 public class ExtPlaneTCPReceiver extends StoppableThread {
 
-    private static final Logger LOGGER = Logger.getLogger(ExtPlaneTCPReceiver.class);
-    
     private Socket socket;
     private ExecutorService pool;
     private DataRefRepository repository;
@@ -66,7 +63,7 @@ public class ExtPlaneTCPReceiver extends StoppableThread {
             }
             
         } catch (IOException e) {
-            LOGGER.error("Error getting data from server.",e);
+//            LOGGER.error("Error getting data from server.",e);
         } finally {
             pool.shutdown();
         }
