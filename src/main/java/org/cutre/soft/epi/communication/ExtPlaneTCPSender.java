@@ -1,5 +1,6 @@
 package org.cutre.soft.epi.communication;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -44,16 +45,14 @@ public class ExtPlaneTCPSender extends StoppableThread {
             String command = null;
             CommandMessage message = null;
             
-            this.setName("ExtPlane-SenderThread");            
-//            LOGGER.debug("Running Thread " + this.getName());
+            this.setName("ExtPlane-SenderThread");
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
             
             while(keep_running) {
                 message = this.repository.getNextMessage();
                 if (message != null) {
                     command = message.getCommand();
-                    
-//                    LOGGER.debug("Sending message: " + command);
+
                     writer.println(command);
                     writer.flush();
                     
@@ -62,14 +61,8 @@ public class ExtPlaneTCPSender extends StoppableThread {
                     sleep(250);
                 }
             }
-            
-
-        } catch (Exception e) {
-//            LOGGER.error("ERROR sending data.", e);
-        } finally {
-            
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
-
     }
-
 }
