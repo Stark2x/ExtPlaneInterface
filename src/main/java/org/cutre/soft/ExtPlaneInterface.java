@@ -114,16 +114,15 @@ public class ExtPlaneInterface {
         this.sendMessage(new ExtPlaneCommand(ExtPlaneCommand.EXTPLANE_SETTING.UPDATE_INTERVAL, interval));
     }
     
-    public void start() throws Exception {
+    public void start() throws ConnectionException {
         try {
             this.connect();
             this.startSending();
             this.startReceiving();
-        } catch(Exception e) {
-//            LOGGER.error("Error starting services.", e);
+        } catch(ConnectionException e) {
             this.stopReceiving();
             this.stopSending();
-            throw e;
+            throw new ConnectionException("Error starting services.", e);
         }
     }
     
@@ -145,10 +144,8 @@ public class ExtPlaneInterface {
         try {
             socket = new Socket(server, port);
         } catch (UnknownHostException e) {
-//            LOGGER.error("[ExtPlaneInterface::connect] Error connecting host " + server, e);
             throw new ConnectionException("Error connecting host -> " + server, e);
         } catch (IOException e) {
-//            LOGGER.error("[ExtPlaneInterface::connect] Error connecting host " + server, e);
             throw new ConnectionException("Error connecting host -> " + server, e);
         }
     }

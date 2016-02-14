@@ -27,7 +27,6 @@ import org.cutre.soft.epi.util.ObservableAware;
  * @author Pau G.
  */
 public class InputHandler implements Runnable {
-
     private static final String DATA_REF_PATTERN = "^u(i|f|d|ia|fa|b)\\s.+";
     private static final String VERSION_PATTERN = "^EXTPLANE\\s.*";
     
@@ -35,7 +34,6 @@ public class InputHandler implements Runnable {
     private final DataRefRepository repository;
     
     private DataRef dataRef;
-    
 
     InputHandler(DataRefRepository repository, String data) {
         this.data = data;
@@ -43,7 +41,6 @@ public class InputHandler implements Runnable {
     }
 
     public void run() {
-
         if(isDataRef(data)) {
             
             DataRefFactory drf = new DataRefFactory(data);
@@ -53,20 +50,10 @@ public class InputHandler implements Runnable {
             repository.setDataRef(dataRef);
             
             ObservableAware.getInstance().update(dataRef);
-            
-//            LOGGER.debug(dataRef);
-            
-        } else if(isVersion(data)) {
-//            LOGGER.info("Version " + data.replace("EXTPLANE ", ""));
         }
-        
     }
     
     private boolean isDataRef(String data) {
         return Pattern.matches(InputHandler.DATA_REF_PATTERN, data);
-    }
-    
-    private boolean isVersion(String data) {
-        return Pattern.matches(InputHandler.VERSION_PATTERN, data);
     }
 }

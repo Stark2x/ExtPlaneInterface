@@ -45,14 +45,11 @@ public class ExtPlaneTCPReceiver extends StoppableThread {
         pool = Executors.newFixedThreadPool(poolSize);
 
         Thread.currentThread().setPriority(MIN_PRIORITY);
-
     }
 
     @Override
     public void run() {
-
         try {
-
             BufferedReader inFromServer = null;
             String valor = null;
             inFromServer = new BufferedReader(new InputStreamReader(
@@ -61,13 +58,10 @@ public class ExtPlaneTCPReceiver extends StoppableThread {
                 valor = inFromServer.readLine();
                 pool.execute(new InputHandler(this.repository, valor));
             }
-            
         } catch (IOException e) {
-//            LOGGER.error("Error getting data from server.",e);
+            e.printStackTrace();
         } finally {
             pool.shutdown();
         }
-
     }
-
 }
