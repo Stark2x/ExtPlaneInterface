@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import org.cutre.soft.epi.command.CommandCommand;
 import org.cutre.soft.epi.command.CommandMessage;
 import org.cutre.soft.epi.command.DataRefCommand;
 import org.cutre.soft.epi.command.ExtPlaneCommand;
@@ -113,7 +114,19 @@ public class ExtPlaneInterface {
     public void setExtPlaneUpdateInterval(String interval) {
         this.sendMessage(new ExtPlaneCommand(ExtPlaneCommand.EXTPLANE_SETTING.UPDATE_INTERVAL, interval));
     }
-    
+
+    public void commandBegin(String commandName) {
+        this.sendMessage(new CommandCommand(CommandCommand.CommandType.begin, commandName));
+    }
+
+    public void commandEnd(String commandName) {
+        this.sendMessage(new CommandCommand(CommandCommand.CommandType.end, commandName));
+    }
+
+    public void commandOnce(String commandName) {
+        this.sendMessage(new CommandCommand(CommandCommand.CommandType.once, commandName));
+    }
+
     public void start() throws ConnectionException {
         try {
             this.connect();

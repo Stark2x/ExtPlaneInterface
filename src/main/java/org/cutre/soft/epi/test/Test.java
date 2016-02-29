@@ -55,7 +55,19 @@ public class Test {
         System.out.println("Setting ExtPlane update interval to 0.001.");
         ExtPlaneCommand epc = new ExtPlaneCommand(ExtPlaneCommand.EXTPLANE_SETTING.UPDATE_INTERVAL, "0.001");
         iface.sendMessage(epc);
-        
+
+        System.out.println("Turning wipers on ");
+        iface.commandOnce("sim/systems/wipers_up");
+        Thread.sleep(5000);
+
+        System.out.println("And faster!");
+        iface.commandOnce("sim/systems/wipers_up");
+        Thread.sleep(5000);
+
+        System.out.println("Turning wipers off");
+        iface.commandOnce("sim/systems/wipers_dn");
+        iface.commandOnce("sim/systems/wipers_dn");
+
         System.out.println("Including dataRef " + dataRefName + " with an accuracy of 100.0.");
         iface.includeDataRef(dataRefName,100.0F);
         
