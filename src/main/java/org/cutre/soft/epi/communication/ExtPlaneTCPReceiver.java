@@ -50,6 +50,8 @@ public class ExtPlaneTCPReceiver extends StoppableThread {
     @Override
     public void run() {
         try {
+            Thread.currentThread().setName(this.getClass().getSimpleName());
+
             BufferedReader inFromServer = null;
             String valor = null;
             inFromServer = new BufferedReader(new InputStreamReader(

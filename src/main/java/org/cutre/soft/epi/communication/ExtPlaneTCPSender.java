@@ -42,10 +42,11 @@ public class ExtPlaneTCPSender extends StoppableThread {
     public void run() {
 
         try {
+            Thread.currentThread().setName(this.getClass().getSimpleName());
+
             String command = null;
             CommandMessage message = null;
-            
-            this.setName("ExtPlane-SenderThread");
+
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
             
             while(keep_running) {
